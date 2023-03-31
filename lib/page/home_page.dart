@@ -58,36 +58,46 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildFeaturedProduct({String? name, double? price, String? image}) {
-    return Card(
-      child: Container(
-        height: 250,
-        width: 160,
-        color: Colors.white,
-        child: Column(
-          children: <Widget>[
-            Container(
-              height: 190,
-              width: 160,
-              decoration: BoxDecoration(
-                image: DecorationImage(image: AssetImage("images/$image")),
+    return ListView(
+      children: [
+        Container(
+          child: Card(
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 50),
+              child: Container(
+                height: 350,
+                width: 260,
+                color: Colors.white,
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      height: 290,
+                      width: 160,
+                      decoration: BoxDecoration(
+                        image:
+                            DecorationImage(image: AssetImage("images/$image")),
+                      ),
+                    ),
+                    Text(
+                      "\$ $price",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: Color.fromARGB(255, 171, 230, 210)),
+                    ),
+                    Text(
+                      name!,
+                      style: TextStyle(
+                        fontSize: 17,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-            Text(
-              "\$ $price",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                  color: Color.fromARGB(255, 171, 230, 210)),
-            ),
-            Text(
-              name!,
-              style: TextStyle(
-                fontSize: 17,
-              ),
-            ),
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 
@@ -138,7 +148,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Container(height: 100, child: Image.network(model.cover)),
+              Container(height: 49, child: Image.network(model.cover)),
               SizedBox(
                 height: 16,
               ),
@@ -150,23 +160,21 @@ class _HomePageState extends State<HomePage> {
                 ),
               )),
               // Text(model.price + '\฿'),
-        MaterialButton(
-              onPressed: () {
-                setState(() {
-                  cartItems.add(productsModels[index]); // add product to cart
-                });
-              },
-
-                     
-              color: Colors.green[200],
-              child: Text(
-                'Add to Cart - ${model.price} ฿',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
+              MaterialButton(
+                onPressed: () {
+                  setState(() {
+                    cartItems.add(productsModels[index]); // add product to cart
+                  });
+                },
+                color: Colors.green[200],
+                child: Text(
+                  'Add to Cart - ${model.price} ฿',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-            ),
             ],
           ),
         ),
@@ -191,14 +199,17 @@ class _HomePageState extends State<HomePage> {
         ),
         centerTitle: true,
         backgroundColor: Colors.green[200],
-        leading: IconButton(
-          icon: Icon(
-            Icons.menu,
-            color: Colors.green[800],
+        leading: Padding(
+          padding: const EdgeInsets.only(bottom: 50),
+          child: IconButton(
+            icon: Icon(
+              Icons.menu,
+              color: Colors.green[800],
+            ),
+            onPressed: () {
+              _key.currentState?.openDrawer();
+            },
           ),
-          onPressed: () {
-            _key.currentState?.openDrawer();
-          },
         ),
         actions: <Widget>[
           IconButton(
@@ -215,7 +226,11 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(color: Colors.black87),
               ),
               currentAccountPicture: CircleAvatar(
-                child: Icon(Icons.account_circle, size: 70,color: Colors.green[400],),
+                child: Icon(
+                  Icons.account_circle,
+                  size: 70,
+                  color: Colors.green[400],
+                ),
                 backgroundColor: Colors.green[200],
               ),
               decoration: BoxDecoration(color: Colors.green[200]),
